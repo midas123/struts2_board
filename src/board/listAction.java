@@ -43,7 +43,6 @@ public class listAction extends ActionSupport {
 		
 		if(page.getEndCount() <totalCount)
 			lastCount = page.getEndCount() + 1;
-		
 		list = list.subList(page.getStartCount(), lastCount);
 		
 		return SUCCESS;

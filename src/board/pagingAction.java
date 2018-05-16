@@ -42,7 +42,7 @@ public class pagingAction {
 		pagingHtml = new StringBuffer();
 		if(currentPage > blockPage) {
 			pagingHtml.append("<a href=listAction.action?currentPage="+ (startPage -1) + ">");
-			pagingHtml.append("ÀÌÀü");
+			pagingHtml.append("ì´ì „");
 			pagingHtml.append("</a>");
 		}
 		
@@ -72,7 +72,7 @@ public class pagingAction {
 		
 		if(totalPage - startPage >= blockPage) {
 			pagingHtml.append("<a href=listAction.action?currentPage=" + (endPage + 1) + ">");
-			pagingHtml.append("´ÙÀ½");
+			pagingHtml.append("ë‹¤ìŒ");
 			pagingHtml.append("</a>");
 		}
 	}

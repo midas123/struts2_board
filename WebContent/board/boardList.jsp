@@ -36,6 +36,7 @@
 <s:property value="no"/>
 </s:param>
 <s:param name="currentPage">
+<s:property value="currentPage"/>
 </s:param>
 </s:url>
 
