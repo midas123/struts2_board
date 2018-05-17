@@ -13,6 +13,9 @@
 		<result property="file_savname" column="file_savName"/>
 		<result property="readhit" column="readhit"/>
 		<result property="regdate" column="regdate"/>
+		<result property="ref" column="ref"/>
+		<result property="ref_level" column="ref_level"/>
+		<result property="ref_step" column="ref_step"/>
 	</resultMap>
 
 	<sql id="select-all">
@@ -44,9 +47,10 @@
 	</select>
 	
 	<insert id="insertBoard" parameterClass="board">
-	INSERT INTO SBOARD_00 (NO,SUBJECT,NAME,PASSWORD,CONTENT,REGDATE)
-	VALUES (SBOARD_NO_SEQ_00.NEXTVAL, #subject#, #name#, #password#, #content#, #regdate#)
+	INSERT INTO SBOARD_00 (NO,SUBJECT,NAME,PASSWORD,CONTENT,REGDATE, REF, REF_LEVEL, REF_STEP)
+	VALUES (SBOARD_NO_SEQ_00.NEXTVAL, #subject#, #name#, #password#, #content#, #regdate#, SBOARD_NO_SEQ_00.CURRVAL, #ref_level#, #ref_step#)
 	</insert>
+	
 
 <update id="updateBoard" parameterClass="board">
 	UPDATE SBOARD_00 SET SUBJECT = #subject#,
@@ -66,6 +70,11 @@
 	UPDATE SBOARD_00 SET READHIT = readHit +1
 	<include refid="where-no"/>
 </update>
+
+<update id="updateLevelStep" parameterClass="board">
+	UPDATE SBOARD_00 SET ref_step=ref_step+1 where ref=#ref# and ref_step>#ref_step#
+</update>
+
 
 <delete id="deleteBoard" parameterClass="board">
 	DELETE FROM SBOARD_00

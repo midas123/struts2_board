@@ -13,6 +13,11 @@ public class boardVO {
 	private String file_savname;
 	private int readhit;
 	private Date regdate;
+	
+	private int ref;
+	private int ref_level;
+	private int ref_step;
+	
 	public int getNo() {
 		return no;
 	}
@@ -66,6 +71,24 @@ public class boardVO {
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public int getRef_level() {
+		return ref_level;
+	}
+	public int getRef_step() {
+		return ref_step;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+	public void setRef_level(int ref_level) {
+		this.ref_level = ref_level;
+	}
+	public void setRef_step(int ref_step) {
+		this.ref_step = ref_step;
 	}
 	
 	

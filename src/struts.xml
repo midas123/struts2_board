@@ -34,6 +34,8 @@
 		<result>/board/boardView.jsp</result>
 	</action>
 	
+	
+	
 	<action name="fileDownloadAction" class="board.viewAction" method="download">
 		<result name="success" type="stream">
 			<param name="contentType">binary/octet-stream</param>
@@ -42,6 +44,13 @@
 			<param name="contentLength">${contentLength}</param>
 			<param name="bufferSize">4096</param>
 		</result>
+	</action>
+	
+	<action name="ReplyArticleForm" class="board.writeAction" method="goWriteForm">
+		<result>/board/boardWrite.jsp</result>
+	</action>
+	<action name="ReplyArticleAction" class="board.writeAction">
+		<result type="chain">viewAction</result>
 	</action>
 	
 	<action name="checkForm" class="board.viewAction" method="checkForm">

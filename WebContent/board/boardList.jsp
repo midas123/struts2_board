@@ -30,7 +30,10 @@
 <td height="1" colspan="5"></td>
 </tr>
 
+<!--게시글 출력 시작  -->
+
 <s:iterator value="list" status="stat">
+<!--아래 url태그는 viewURL id에 viewAction클래스로 URL링크를 걸고 listAction의 프로퍼티 no와 currentPage를 같은 이름의 파라미터로 get방식으로 전송  -->
 <s:url id="viewURL" action="viewAction">
 <s:param name="no">
 <s:property value="no"/>
@@ -38,6 +41,18 @@
 <s:param name="currentPage">
 <s:property value="currentPage"/>
 </s:param>
+<s:param name="ref">
+<s:property value="ref"/>
+</s:param>
+<s:param name="ref_level">
+<s:property value="ref_level"/>
+</s:param>
+<s:param name="ref_step">
+<s:property value="ref_step"/>
+</s:param>
+
+
+
 </s:url>
 
 <tr bgcolor="#FFFFFF" align="center">
@@ -51,6 +66,11 @@
 <td height="1" colspan="5"></td>
 </tr>
 </s:iterator>
+
+<!-- 게시글 출력 종료 -->
+
+
+<!-- 게시글이 없을 경우 -->
 <s:if test="list.size() <= 0">
 <tr bgcolor="#FFFFFF" align="center">
 <td colspan="5">등록된 게시물이 없습니다.</td>
@@ -59,12 +79,19 @@
 <td height="1"colspan="5"></td>
 </tr>
 </s:if>
+
+<!-- 게시글이 없을 경우, 종료 -->
+
+
+<!-- 페이징 넘버 출력  -->
 <tr align="center">
 <td colspan="5"><s:property value="pagingHtml" escape="false"/></td>
 </tr>
+
+
 <tr align="right">
 <td colspan="5">
-<input type="button" value="글쓰기" class="inputb" onclick="javascript:location.href='writeForm.action?currentPage=<s:property value="currentPage"/>';">
+<input type="button" value="글쓰기" class="inputb" onclick="javascript:location.href='writeForm.action?currentPage=<s:property value="currentPage"/>&ref_level=<s:property value="ref_level"/>';">
 </td>
 </tr>
 </table>

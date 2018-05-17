@@ -24,6 +24,11 @@ public class listAction extends ActionSupport {
 	private int blockPage =5;
 	private String pagingHtml;
 	private pagingAction page;
+	
+	private int ref;
+	private int ref_step =0;
+	private int ref_level=0;
+	
 
 	public listAction() throws IOException{
 		// TODO Auto-generated constructor stub
@@ -118,8 +123,33 @@ public class listAction extends ActionSupport {
 
 	public void setPage(pagingAction page) {
 		this.page = page;
-	}	
+	}
 
+	public int getRef_step() {
+		return ref_step;
+	}
+
+	public int getRef_level() {
+		return ref_level;
+	}
+
+	public void setRef_step(int ref_step) {
+		this.ref_step = ref_step;
+	}
+
+	public void setRef_level(int ref_level) {
+		this.ref_level = ref_level;
+	}
+
+	public int getRef() {
+		return ref;
+	}
+
+	public void setRef(int ref) {
+		this.ref = ref;
+	}	
+	
+	
 	
 
 }

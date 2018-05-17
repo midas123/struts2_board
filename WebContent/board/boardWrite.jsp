@@ -38,11 +38,17 @@
 </td>
 </tr>
 </table>
-
-<s:if test="resultClass == NULL">
+<s:if test="replysubject != NULL">
+	<form action="ReplyArticleAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+	<s:hidden name="ref_level" value="%{ref_level}"/>
+	<s:hidden name="ref_step" value="%{ref_step}"/>
+	<s:hidden name="ref" value="%{ref}"/>
+	<s:hidden name="replycheck" value="1"/>
+</s:if>
+<s:elseif test="resultClass == NULL">
 	<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
 	
-</s:if>
+</s:elseif>
 <s:else>
 	<form action="modifyAction.action" method="post" enctype="multipart/form-data">
 	<s:hidden name="no" value="%{resultClass.no}"/>
@@ -63,7 +69,7 @@
 <tr>
 	<td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>제목</td>
 	<td width="500" bgcolor="#FFFFFF">
-	<s:textfield name="subject" theme="simple" value="%{resultClass.subject}" cssStyle="width:370px" maxlength="50"/>
+	<s:textfield name="subject" theme="simple" value="%{replysubject}%{resultClass.subject}" cssStyle="width:370px" maxlength="50"/>
 	</td>
 </tr>	
 
@@ -83,7 +89,7 @@
 </tr>
 
 <tr>
-	<td bgcolor="#F4F4F4"><font color="#FF0000">*</font>비빌번호</td>
+	<td bgcolor="#F4F4F4"><font color="#FF0000">*</font>비밀번호</td>
 	<td bgcolor="#FFFFFF">
 	<s:textfield name="password" theme="simple" value="%{resultClass.password}" cssStyle="width:100px" maxlength="20"/>
 </td>

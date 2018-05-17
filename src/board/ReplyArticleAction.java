@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 
-public class writeAction extends ActionSupport {
+public class ReplyArticleAction extends ActionSupport {
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -29,8 +29,7 @@ public class writeAction extends ActionSupport {
 	private String file_orgName;
 	private String file_savName;
 	
-	private int replycheck;
-	private String replysubject;
+	private String replysubject ="[답변]";
 	private int ref;
 	private int ref_level;
 	private int ref_step;
@@ -42,7 +41,7 @@ public class writeAction extends ActionSupport {
 	private String uploadFileName;
 	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
 	
-	public writeAction() throws IOException {
+	public ReplyArticleAction() throws IOException {
 		// TODO Auto-generated constructor stub
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
@@ -70,15 +69,7 @@ public class writeAction extends ActionSupport {
 		paramClass.setRef_level(getRef_level());
 		paramClass.setRef_step(getRef_step());
 		
-		
 		sqlMapper.insert("insertBoard", paramClass);
-		System.out.println(replycheck);
-		if(replycheck ==1) {
-			paramClass.setRef(getRef());
-			paramClass.setRef_level(getRef_level());
-			paramClass.setRef_step(getRef_step());
-			sqlMapper.update("updateLevelStep", paramClass);	
-		} 
 		
 		if(getUpload() != null) {
 			resultClass = (boardVO) sqlMapper.queryForObject("selectLastNo");
@@ -99,8 +90,8 @@ public class writeAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	
 	public String goWriteForm() throws Exception {
-		replysubject ="[답변]";
 		return SUCCESS;
 	}
 
@@ -263,21 +254,13 @@ public class writeAction extends ActionSupport {
 	public void setRef_step(int ref_step) {
 		this.ref_step = ref_step;
 	}
-	
+
 	public String getReplysubject() {
 		return replysubject;
 	}
 
 	public void setReplysubject(String replysubject) {
 		this.replysubject = replysubject;
-	}
-
-	public int getReplycheck() {
-		return replycheck;
-	}
-
-	public void setReplycheck(int replycheck) {
-		this.replycheck = replycheck;
 	}
 	
 	

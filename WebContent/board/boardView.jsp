@@ -121,6 +121,7 @@ function open_win_noresizable (url, name) {
 	</s:param>
 	</s:url>
 	
+	<input name="list" type="button" value="답글쓰기" class="inputb" onClick="javascript:location.href='ReplyArticleForm.action?no=<s:property value="resultClass.no"/>&currentPage=<s:property value="currentPage"/>&ref=<s:property value="ref"/>&ref_level=<s:property value="ref_level"/>&ref_step=<s:property value="ref_step"/>'">
 	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:open_win_noresizable('checkForm.action?no=<s:property value="resultClass.no"/>&currentPage=<s:property value="currentPage"/>','modify')">
 	<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('checkForm.action?no=<s:property value="resultClass.no"/>&currentPage=<s:property value="currentPage"/>','delete')">
 	<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='listAction.action?no=<s:property value="resultClass.no"/>&currentPage=<s:property value="currentPage"/>'">
