@@ -18,7 +18,7 @@
 		<td height="20"></td>
 	</tr>
 </table>
-<table width="600" border="0" cellspacing="0" cellpadding="2">
+<table width="600" border="0" cellspacing="0" cellpadding="1">
 	<tr align="center" bgcolor="#F3F3F3">
 	<td width="50"><strong>번호</strong></td>
 	<td width="350"><strong>제목</strong></td>
@@ -88,12 +88,24 @@
 <tr align="center">
 <td colspan="5"><s:property value="pagingHtml" escape="false"/></td>
 </tr>
-
-
 <tr align="right">
 <td colspan="5">
 <input type="button" value="글쓰기" class="inputb" onclick="javascript:location.href='writeForm.action?currentPage=<s:property value="currentPage"/>&ref_level=<s:property value="ref_level"/>';">
 </td>
+</tr>
+</table>
+<table align="center">
+<tr>
+<form action="listSearchAction.action" method="post">
+<select name="searchn">
+<option value="0">작성자</option>
+<option value="1">제목</option>
+<option value="2">내용</option>
+</select>
+
+<input type="text" name="search" size="15" maxlength="50"/>
+<input type="submit" value="검색"/>
+</form>
 </tr>
 </table>
 </body>

@@ -31,6 +31,22 @@
 		ORDER BY ref DESC, ref_step ASC 
 	</select>
 	
+	<select id="selectSearch1" resultMap="boardRes">
+		<include refid="select-all"/>
+		where name like #search# order by no desc	
+	</select>
+	
+	<select id="selectSearch2" resultMap="boardRes">
+		<include refid="select-all"/>
+		where subject like #search# order by no desc	
+	</select>
+	
+	<select id="selectSearch3" resultMap="boardRes">
+		<include refid="select-all"/>
+		where content like #search# order by no desc	
+	</select>
+	
+	
 	<select id="selectOne" resultMap="boardRes" parameterClass="int">
 		<include refid="select-all"/>
 		<include refid="where-no"/>

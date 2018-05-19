@@ -18,6 +18,9 @@ public class boardVO {
 	private int ref_level;
 	private int ref_step;
 	
+	private String search;
+	
+	
 	public int getNo() {
 		return no;
 	}
@@ -90,6 +93,14 @@ public class boardVO {
 	public void setRef_step(int ref_step) {
 		this.ref_step = ref_step;
 	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	
+	
 	
 	
 	

@@ -20,6 +20,11 @@
 	<action name="listAction" class="board.listAction">
 		<result>/board/boardList.jsp</result>
 	</action>
+	
+	<action name="listSearchAction" class="board.listSearchAction">
+		<result>/board/boardList.jsp</result>
+	</action>
+	
 	<action name="writeForm" class="board.writeAction" method="form">
 		<result>/board/boardWrite.jsp</result>
 	</action>
