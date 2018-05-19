@@ -46,11 +46,11 @@
 		</result>
 	</action>
 	
-	<action name="ReplyArticleForm" class="board.writeAction" method="goWriteForm">
+	<action name="ReplyArticleForm" class="board.ReplyArticleAction" method="goWriteForm">
 		<result>/board/boardWrite.jsp</result>
 	</action>
-	<action name="ReplyArticleAction" class="board.writeAction">
-		<result type="chain">viewAction</result>
+	<action name="ReplyArticleAction" class="board.ReplyArticleAction">
+		<result type="chain">listAction</result>
 	</action>
 	
 	<action name="checkForm" class="board.viewAction" method="checkForm">

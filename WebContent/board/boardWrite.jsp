@@ -43,7 +43,8 @@
 	<s:hidden name="ref_level" value="%{ref_level}"/>
 	<s:hidden name="ref_step" value="%{ref_step}"/>
 	<s:hidden name="ref" value="%{ref}"/>
-	<s:hidden name="replycheck" value="1"/>
+	<s:hidden name="currentPage" value="%{currentPage}"/>
+	
 </s:if>
 <s:elseif test="resultClass == NULL">
 	<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
@@ -69,8 +70,15 @@
 <tr>
 	<td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>Á¦¸ñ</td>
 	<td width="500" bgcolor="#FFFFFF">
-	<s:textfield name="subject" theme="simple" value="%{replysubject}%{resultClass.subject}" cssStyle="width:370px" maxlength="50"/>
+	<s:if test="replysubject !=null">
+	<s:textfield name="subject" theme="simple" value="%{replysubject}" cssStyle="width:370px" maxlength="50"/>
+	
+	</s:if>
+	<s:else>
+	
+	<s:textfield name="subject" theme="simple" value="%{resultClass.subject}" cssStyle="width:370px" maxlength="50"/>
 	</td>
+	</s:else>
 </tr>	
 
 <tr bgcolor="#777777">

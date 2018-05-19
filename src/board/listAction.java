@@ -41,12 +41,15 @@ public class listAction extends ActionSupport {
 		list = sqlMapper.queryForList("selectAll");
 		totalCount = list.size();
 		
+		//boardList.jsp 하단에 출력될 페이징 넘버와 이전,다음 문자를 html 형태로 가져온다.
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage);
 		pagingHtml = page.getPagingHtml().toString();
 		
 		int lastCount = totalCount;
 		
+		//pagingAction의 startcount와 endcount로 한 페이지에서 출력될 게시글을 선택한다.
 		if(page.getEndCount() <totalCount)
+			//배열 인덱스 넘버이므로 1을 더한다.
 			lastCount = page.getEndCount() + 1;
 		list = list.subList(page.getStartCount(), lastCount);
 		

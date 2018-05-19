@@ -29,7 +29,7 @@ public class ReplyArticleAction extends ActionSupport {
 	private String file_orgName;
 	private String file_savName;
 	
-	private String replysubject ="[답변]";
+	private String replysubject;
 	private int ref;
 	private int ref_level;
 	private int ref_step;
@@ -66,10 +66,10 @@ public class ReplyArticleAction extends ActionSupport {
 		paramClass.setRegdate(today.getTime());
 		
 		paramClass.setRef(getRef());
-		paramClass.setRef_level(getRef_level());
-		paramClass.setRef_step(getRef_step());
+		paramClass.setRef_level(getRef_level()+1);
+		paramClass.setRef_step(getRef_step()+1);
 		
-		sqlMapper.insert("insertBoard", paramClass);
+		sqlMapper.insert("insertReplyArticle", paramClass);
 		
 		if(getUpload() != null) {
 			resultClass = (boardVO) sqlMapper.queryForObject("selectLastNo");
@@ -90,8 +90,8 @@ public class ReplyArticleAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	
 	public String goWriteForm() throws Exception {
+		replysubject ="[답변]";
 		return SUCCESS;
 	}
 

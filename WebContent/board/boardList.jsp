@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -50,14 +50,15 @@
 <s:param name="ref_step">
 <s:property value="ref_step"/>
 </s:param>
-
-
-
 </s:url>
 
 <tr bgcolor="#FFFFFF" align="center">
 <td><s:property value="no"/></td>
-<td align="left"> &nbsp;<s:a href="%{viewURL}"><s:property value="subject"/></s:a></td>
+<td align="left">
+<s:if test="ref_level!=0">
+<c:forEach var = "i" end = "${ref_level}" begin = "0">
+&nbsp;</c:forEach>¡æ
+</s:if><s:a href="%{viewURL}"><s:property value="subject"/></s:a></td>
 <td align="center"><s:property value="name"/></td>
 <td align="center"><s:property value="regdate"/></td>
 <td><s:property value="readhit"/></td>

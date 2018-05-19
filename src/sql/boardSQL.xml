@@ -25,10 +25,10 @@
 	<sql id="where-no">
 		WHERE no = #no#
 	</sql>
-
+	
 	<select id="selectAll" resultMap="boardRes">
 		<include refid="select-all"/>
-		ORDER BY no DESC
+		ORDER BY ref DESC, ref_step ASC 
 	</select>
 	
 	<select id="selectOne" resultMap="boardRes" parameterClass="int">
@@ -51,6 +51,11 @@
 	VALUES (SBOARD_NO_SEQ_00.NEXTVAL, #subject#, #name#, #password#, #content#, #regdate#, SBOARD_NO_SEQ_00.CURRVAL, #ref_level#, #ref_step#)
 	</insert>
 	
+	<insert id="insertReplyArticle" parameterClass="board">
+	INSERT INTO SBOARD_00 (NO,SUBJECT,NAME,PASSWORD,CONTENT,REGDATE, REF, REF_LEVEL, REF_STEP)
+	VALUES (SBOARD_NO_SEQ_00.NEXTVAL, #subject#, #name#, #password#, #content#, #regdate#, #ref#, #ref_level#, #ref_step#)
+	</insert>
+	
 
 <update id="updateBoard" parameterClass="board">
 	UPDATE SBOARD_00 SET SUBJECT = #subject#,
@@ -69,10 +74,6 @@
 <update id="updateReadHit" parameterClass="board">
 	UPDATE SBOARD_00 SET READHIT = readHit +1
 	<include refid="where-no"/>
-</update>
-
-<update id="updateLevelStep" parameterClass="board">
-	UPDATE SBOARD_00 SET ref_step=ref_step+1 where ref=#ref# and ref_step>#ref_step#
 </update>
 
 

@@ -29,18 +29,18 @@ public class writeAction extends ActionSupport {
 	private String file_orgName;
 	private String file_savName;
 	
-	private int replycheck;
-	private String replysubject;
 	private int ref;
 	private int ref_level;
 	private int ref_step;
 	
 	Calendar today = Calendar.getInstance();
 	
+	//Upload에는 boardWrite.jsp에서 업로드한 파일의 임시파일 경로가 담겨있다.
 	private File Upload;
 	private String uploadContentType;
 	private String uploadFileName;
-	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
+	//private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
+	private String fileUploadPath = "C:\\Users\\yk\\Desktop\\upload\\";
 	
 	public writeAction() throws IOException {
 		// TODO Auto-generated constructor stub
@@ -60,6 +60,7 @@ public class writeAction extends ActionSupport {
 		paramClass = new boardVO();
 		resultClass = new boardVO();
 		
+		//boardWrite.jsp에서 사용자가 입력한 값을 받아 객체에 담는다.
 		paramClass.setSubject(getSubject());
 		paramClass.setName(getName());
 		paramClass.setPassword(getPassword());
@@ -70,39 +71,36 @@ public class writeAction extends ActionSupport {
 		paramClass.setRef_level(getRef_level());
 		paramClass.setRef_step(getRef_step());
 		
-		
+		//객체를 DB에 삽입한다.
 		sqlMapper.insert("insertBoard", paramClass);
-		System.out.println(replycheck);
-		if(replycheck ==1) {
-			paramClass.setRef(getRef());
-			paramClass.setRef_level(getRef_level());
-			paramClass.setRef_step(getRef_step());
-			sqlMapper.update("updateLevelStep", paramClass);	
-		} 
 		
+
+		
+		//업로드 파일을 첨부 했을 경우 실행
 		if(getUpload() != null) {
+			//DB에서 num 칼럼에서 최대값에 해당하는 게시글을 가져와 객체에 담는다.
 			resultClass = (boardVO) sqlMapper.queryForObject("selectLastNo");
 		
+			//파일명 + num값
 			String file_name = "file_" + resultClass.getNo();
+			//파일 확장자를 가져온다
 			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1, getUploadFileName().length());
-			
+			//파일의 경로와 이름을 file객체에 담는다
 			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
+			//임시파일을 복사 후 설정한 이름과 경로(서버 컴퓨터)에 저장한다.원본이름을 그대로 저장하면 파일중복이 발생할 수 있다.
 			FileUtils.copyFile(getUpload(), destFile);
-		
+			
 			paramClass.setNo(resultClass.getNo());
 			paramClass.setFile_orgname(getUploadFileName());
 			paramClass.setFile_savname(file_name+"."+file_ext);
-		
+			
+			//DB에 파일의 원본이름과 새로 설정한 이름을 업데이트한다.
 			sqlMapper.update("updateFile", paramClass);
 		}
 		
 		return SUCCESS;
 	}
 	
-	public String goWriteForm() throws Exception {
-		replysubject ="[답변]";
-		return SUCCESS;
-	}
 
 	public static Reader getReader() {
 		return reader;
@@ -264,23 +262,7 @@ public class writeAction extends ActionSupport {
 		this.ref_step = ref_step;
 	}
 	
-	public String getReplysubject() {
-		return replysubject;
-	}
 
-	public void setReplysubject(String replysubject) {
-		this.replysubject = replysubject;
-	}
-
-	public int getReplycheck() {
-		return replycheck;
-	}
-
-	public void setReplycheck(int replycheck) {
-		this.replycheck = replycheck;
-	}
-	
-	
 	
 	
 }

@@ -5,10 +5,10 @@ public class pagingAction {
 	private int currentPage;
 	private int totalCount;
 	private int totalPage;
-	private int blockCount;
-	private int blockPage;
-	private int startCount;
-	private int endCount;
+	private int blockCount; // 한 페이지의  게시물의 수
+	private int blockPage; // 한 화면에 보여줄 페이지 수
+	private int startCount; // 한 페이지에서 보여줄 게시글의 시작 번호
+	private int endCount; // 한 페이지에서 보여줄 게시글의 끝 번호
 	private int startPage;
 	private int endPage;
 	
@@ -19,8 +19,10 @@ public class pagingAction {
 		this.blockPage = blockPage;
 		this.currentPage = currentPage;
 		this.totalCount = totalCount;
-	
+		//전체 게시글수/페이지당 게시글 수 -> 소수점 올림한 값을 toalPage에 담는다.
 		totalPage= (int) Math.ceil((double) totalCount/ blockCount);
+		
+		//전체 게시글 수가 0일 경우를 대비해서
 		if(totalPage ==0) {
 			totalPage = 1;
 		}
