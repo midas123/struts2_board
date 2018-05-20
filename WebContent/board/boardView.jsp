@@ -128,6 +128,51 @@ function open_win_noresizable (url, name) {
 	
 	</td>
 	</tr>
-</table>
+	<tr>
+	<td colspan="2" height="10">
+	<form action="CommentWriteAction.action" method="post">
+	<table>
+						<tr>
+							<td width="170">
+								이&nbsp;&nbsp;&nbsp;&nbsp;름 <s:textfield name="commenter" theme="simple" value="" cssStyle="width:100px" maxlength="20" /><br>
+								비밀번호 <s:textfield name="passwd" theme="simple" value="" cssStyle="width:100px" maxlength="20" />
+							</td>
+							<s:hidden name="no" value="%{resultClass.no}" />
+							<s:hidden name="currentPage" value="%{currentPage}" />
+							<td align="left">
+								<s:textarea name="comment" theme="simple" value="" cols="60" rows="5" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right">
+								<input name="submit" type="submit" value="작성완료" class="inputb">
+							</td>
+						</tr>
+				</table>
+				</form>
+				<table>
+				<tr bgcolor="#777777">
+			<td colspan="2" height="1"></td>
+			</tr>
+	<s:iterator value="commentlist" status="stat">
+		<tr>
+			<td height="10" width="130" align="center">
+				<s:property value="commenter" /><br>
+				<s:property value="regdate" /><br><br>
+			</td>
+			<td><s:property value="comment"/>
+			&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:open_win_noresizable('checkForm2.action?no=<s:property value="no"/>&commentNum=<s:property value="commentNum"/>&currentPage=<s:property value="currentPage"/>','cdelete')"><font color="red">X</font></a>		
+			</td>
+		</tr>
+		
+		</s:iterator>		
+		<tr>
+			<td colspan="2" height="10">
+				<s:if test="commentlist.size() <= 0">
+				댓글없음
+			</td>
+		</tr>
+				</s:if>			
+		</table>		
 </body>
 </html>

@@ -40,7 +40,6 @@
 	</action>
 	
 	
-	
 	<action name="fileDownloadAction" class="board.viewAction" method="download">
 		<result name="success" type="stream">
 			<param name="contentType">binary/octet-stream</param>
@@ -76,6 +75,25 @@
 	<action name="deleteAction" class="board.deleteAction">
 		<result type="chain">listAction</result>
 	</action>
+	
+	<action name="CommentWriteAction" class="board.CommentWriteAction">
+		<result type="chain">viewAction</result>
+	
+	</action>
+	
+	<action name="checkAction2" class="board.viewAction" method="checkAction2">
+		<result name="error">/board/checkError.jsp</result>
+		<result>/board/checkSuccess.jsp</result>
+	</action>
+	
+	<action name="checkForm2" class="board.viewAction" method="checkForm2">
+		<result>/board/checkPassword2.jsp</result>
+	</action>
+	
+	 <action name="commentDeleteAction" class="board.commentDeleteAction">
+		<result type="chain">listAction</result>
+	</action> 
+	
 	</package>
 	
 	

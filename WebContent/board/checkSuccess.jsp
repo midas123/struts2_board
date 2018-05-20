@@ -18,6 +18,11 @@ function locationURL() {
 			window.opener.parent.location.href='deleteAction.action?no=<s:property value="no"/>&currentPage=<s:property value="currentPage"/>';
 			
 			}
+		else if(window.name =='cdelete')
+			{
+			alert("삭제되었습니다.");
+			window.opener.parent.location.href='commentDeleteAction.action?no=<s:property value="no"/>&currentPage=<s:property value="currentPage"/>';
+			}
 			window.close();		
 }
 </script>

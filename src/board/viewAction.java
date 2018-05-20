@@ -13,6 +13,11 @@ import java.io.InputStream;
 import java.io.IOException;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import board.CommentVO;
 
 
 public class viewAction extends ActionSupport {
@@ -37,8 +42,19 @@ public class viewAction extends ActionSupport {
 	private String contentDisposition;
 	private long contentLength;
 	
+	//댓글
+	private String commenter;
+	private String comment;
+	private int commentNum;
+	private String passwd;
+	private Date regdate;
+	private List<CommentVO> commentlist = new ArrayList<CommentVO>();
+	private CommentVO commentClass = new CommentVO();
+	private CommentVO commentResultClass = new CommentVO();
+	
+
+	
 	public viewAction() throws IOException {
-		
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
@@ -49,6 +65,9 @@ public class viewAction extends ActionSupport {
 		sqlMapper.update("updateReadHit", paramClass);
 		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
 		
+		commentClass.setNo(getNo());
+		commentlist = sqlMapper.queryForList("selectcommentAll", commentClass);
+		
 		return SUCCESS;
 		
 	}
@@ -57,10 +76,8 @@ public class viewAction extends ActionSupport {
 		resultClass = (boardVO) sqlMapper.queryForObject("selectOne", getNo());
 	
 		File fileInfo = new File(fileUploadPath + resultClass.getFile_savname());
-		System.out.println(fileInfo);
 		setContentLength(fileInfo.length());
 		setContentDisposition("attachment;filename="+URLEncoder.encode(resultClass.getFile_orgname(), "UTF-8"));
-		System.out.println(contentDisposition);
 		setInputStream(new FileInputStream(fileUploadPath + resultClass.getFile_savname()));
 		
 		return SUCCESS;
@@ -69,6 +86,11 @@ public class viewAction extends ActionSupport {
 	public String checkForm() throws Exception {
 		return SUCCESS;
 	}
+	
+	public String checkForm2() throws Exception {
+		return SUCCESS;
+	}
+	
 	
 	public String checkAction() throws Exception {
 		paramClass.setNo(getNo());
@@ -79,6 +101,18 @@ public class viewAction extends ActionSupport {
 		if(resultClass == null)
 			return ERROR;
 		
+		
+		return SUCCESS;
+	}
+	
+	public String checkAction2() throws Exception {
+		commentClass.setCommmentNum(getCommentNum());
+		commentClass.setPasswd(getPasswd());
+		
+		commentResultClass = (CommentVO) sqlMapper.queryForObject("selectPassword2",commentClass);
+		
+		if(commentResultClass == null)
+			return ERROR;
 		
 		return SUCCESS;
 	}
@@ -194,6 +228,70 @@ public class viewAction extends ActionSupport {
 
 	public void setRef_step(int ref_step) {
 		this.ref_step = ref_step;
+	}
+
+	public String getCommenter() {
+		return commenter;
+	}
+
+	public void setCommenter(String commenter) {
+		this.commenter = commenter;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public int getCommentNum() {
+		return commentNum;
+	}
+
+	public void setCommentNum(int commentNum) {
+		this.commentNum = commentNum;
+	}
+
+	public String getPasswd() {
+		return passwd;
+	}
+
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	public List<CommentVO> getCommentlist() {
+		return commentlist;
+	}
+
+	public void setCommentlist(List<CommentVO> commentlist) {
+		this.commentlist = commentlist;
+	}
+
+	public CommentVO getCommentClass() {
+		return commentClass;
+	}
+
+	public void setCommentClass(CommentVO commentClass) {
+		this.commentClass = commentClass;
+	}
+
+	public CommentVO getCommentResultClass() {
+		return commentResultClass;
+	}
+
+	public void setCommentResultClass(CommentVO commentResultClass) {
+		this.commentResultClass = commentResultClass;
 	}
 	
 	

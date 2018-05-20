@@ -2,6 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org/DTD sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap>
 	<typeAlias alias="board" type="board.boardVO"/>
+	<typeAlias alias="comment" type="board.CommentVO"/>
 	
 	<resultMap id="boardRes" class="board">
 		<result property="no" column="no"/>
@@ -16,6 +17,15 @@
 		<result property="ref" column="ref"/>
 		<result property="ref_level" column="ref_level"/>
 		<result property="ref_step" column="ref_step"/>
+	</resultMap>
+	
+	<resultMap class="comment" id="commentRes">
+		<result property="no" column="no"/>
+		<result property="commenter" column="commenter"/>
+		<result property="commentNum" column="commentnum"/>
+		<result property="comment" column="commentt"/>
+		<result property="regdate" column="reg_date"/>
+		<result property="passwd" column="passwd"/>
 	</resultMap>
 
 	<sql id="select-all">
@@ -62,6 +72,14 @@
 		AND password = #password#
 	</select>
 	
+	<select id="selectcommentAll" resultMap="commentRes" parameterClass="comment">
+		SELECT * FROM SCOMMENT_00 WHERE no = #no# ORDER BY no DESC
+	</select>
+	
+	<select id="selectPassword2" resultMap="commentRes" parameterClass="comment">
+		SELECT * FROM SCOMMENT_00 WHERE COMMENTNUM = #commentNum# AND PASSWD = #passwd#
+	</select>	
+	
 	<insert id="insertBoard" parameterClass="board">
 	INSERT INTO SBOARD_00 (NO,SUBJECT,NAME,PASSWORD,CONTENT,REGDATE, REF, REF_LEVEL, REF_STEP)
 	VALUES (SBOARD_NO_SEQ_00.NEXTVAL, #subject#, #name#, #password#, #content#, #regdate#, SBOARD_NO_SEQ_00.CURRVAL, #ref_level#, #ref_step#)
@@ -72,6 +90,10 @@
 	VALUES (SBOARD_NO_SEQ_00.NEXTVAL, #subject#, #name#, #password#, #content#, #regdate#, #ref#, #ref_level#, #ref_step#)
 	</insert>
 	
+	<insert id="insertComment" parameterClass="comment">
+	INSERT INTO SCOMMENT_00 (CONTENT_NUM,COMMENTER,COMMENTT,PASSWD,REG_DATE,COMMENTNUM)
+	VALUES (#no#, #commenter#, #comment#, #passwd#, #regdate#, scomment_numberseq_00.NEXTVAL)
+	</insert>
 
 <update id="updateBoard" parameterClass="board">
 	UPDATE SBOARD_00 SET SUBJECT = #subject#,
@@ -96,6 +118,11 @@
 <delete id="deleteBoard" parameterClass="board">
 	DELETE FROM SBOARD_00
 	<include refid="where-no"/>
+</delete>
+
+<delete id="deleteComment" parameterClass="comment">
+	DELETE FROM SCOMMENT_00
+	WHERE COMMENTNUM = #commentNum#
 </delete>
 
 </sqlMap>

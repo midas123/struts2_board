@@ -11,9 +11,11 @@
 </head>
 <body>
 <h2>비밀번호 확인</h2>
-<form action="checkAction.action" method="post">
+<form action="checkAction2.action" method="post">
 <s:hidden name="no" value="%{no}"/>
 <s:hidden name="currentPage" value="%{currentPage}"/>
+<s:hidden name="commentNum" value="%{commentNum}"/>
+
 
 <table width="250" border="0" cellspacing="0" cellpadding="0">
 <tr bgcolor="#777777">
@@ -22,7 +24,7 @@
 <tr>
 	<td width="100" bgcolor="#F4F4F4">비밀번호 입력</td>
 	<td width="150" bgcolor="#FFFFFF">
-	&nbsp;&nbsp;<s:textfield name="password" theme="simple" cssStyle="width:100px" maxlength="20"/>
+	&nbsp;&nbsp;<s:textfield name="passwd" theme="simple" cssStyle="width:100px" maxlength="20"/>
 	&nbsp;&nbsp;<input name="submit" type="submit" value="확인" class="inputb">
 	</td>
 	</tr>		
