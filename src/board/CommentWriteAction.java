@@ -131,6 +131,16 @@ public CommentWriteAction() throws IOException {
 	public void setCommentClass(CommentVO commentClass) {
 		this.commentClass = commentClass;
 	}
+
+
+	public Calendar getToday() {
+		return today;
+	}
+
+
+	public void setToday(Calendar today) {
+		this.today = today;
+	}
 	
 	
 	

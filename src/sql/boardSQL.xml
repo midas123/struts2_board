@@ -20,11 +20,11 @@
 	</resultMap>
 	
 	<resultMap class="comment" id="commentRes">
-		<result property="no" column="no"/>
+		<result property="no" column="num"/>
 		<result property="commenter" column="commenter"/>
 		<result property="commentNum" column="commentnum"/>
 		<result property="comment" column="commentt"/>
-		<result property="regdate" column="reg_date"/>
+		<result property="regdate" column="regdate"/>
 		<result property="passwd" column="passwd"/>
 	</resultMap>
 
@@ -73,7 +73,7 @@
 	</select>
 	
 	<select id="selectcommentAll" resultMap="commentRes" parameterClass="comment">
-		SELECT * FROM SCOMMENT_00 WHERE no = #no# ORDER BY no DESC
+		SELECT * FROM SCOMMENT_00 WHERE NUM = #no# ORDER BY NUM DESC
 	</select>
 	
 	<select id="selectPassword2" resultMap="commentRes" parameterClass="comment">
@@ -91,8 +91,7 @@
 	</insert>
 	
 	<insert id="insertComment" parameterClass="comment">
-	INSERT INTO SCOMMENT_00 (CONTENT_NUM,COMMENTER,COMMENTT,PASSWD,REG_DATE,COMMENTNUM)
-	VALUES (#no#, #commenter#, #comment#, #passwd#, #regdate#, scomment_numberseq_00.NEXTVAL)
+	INSERT INTO SCOMMENT_00 (NUM,COMMENTER,COMMENTT,PASSWD,REGDATE,COMMENTNUM) VALUES (#no#, #commenter#, #comment#, #passwd#, #regdate#, scomment_numberseq_00.NEXTVAL)
 	</insert>
 
 <update id="updateBoard" parameterClass="board">

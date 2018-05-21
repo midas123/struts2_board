@@ -8,6 +8,7 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import java.io.Reader;
 import java.io.IOException;
 
+import board.boardVO;
 
 public class commentDeleteAction extends ActionSupport{
 	public static Reader reader;
@@ -17,8 +18,8 @@ public class commentDeleteAction extends ActionSupport{
 	private int no;
 	
 	private int commentNum;
-	private CommentVO commentClass;
-	
+	private CommentVO commentClass = new CommentVO();
+	private boardVO paramClass = new boardVO();
 	
 	public commentDeleteAction() throws IOException{
 		// TODO Auto-generated constructor stub
@@ -29,7 +30,6 @@ public class commentDeleteAction extends ActionSupport{
 	}
 	
 	public String execute() throws Exception {
-		commentClass = new CommentVO();
 		
 		commentClass.setCommmentNum(getCommentNum());
 		
@@ -37,6 +37,15 @@ public class commentDeleteAction extends ActionSupport{
 		
 		return SUCCESS;
 		
+	}
+	
+		
+	public boardVO getParamClass() {
+		return paramClass;
+	}
+
+	public void setParamClass(boardVO paramClass) {
+		this.paramClass = paramClass;
 	}
 
 	public static Reader getReader() {

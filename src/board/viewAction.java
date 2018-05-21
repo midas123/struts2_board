@@ -109,12 +109,14 @@ public class viewAction extends ActionSupport {
 		commentClass.setCommmentNum(getCommentNum());
 		commentClass.setPasswd(getPasswd());
 		
+		
 		commentResultClass = (CommentVO) sqlMapper.queryForObject("selectPassword2",commentClass);
 		
-		if(commentResultClass == null)
-			return ERROR;
+//		if(commentResultClass == null) 
+//			return ERROR;
 		
 		return SUCCESS;
+			
 	}
 	
 

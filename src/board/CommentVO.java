@@ -12,6 +12,14 @@ public class CommentVO {
 	private Date regdate;
 	private int commentNum;
 	
+	
+	
+	public int getCommentNum() {
+		return commentNum;
+	}
+	public void setCommentNum(int commentNum) {
+		this.commentNum = commentNum;
+	}
 	public int getNo() {
 		return no;
 	}

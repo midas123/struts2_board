@@ -91,7 +91,7 @@
 	</action>
 	
 	 <action name="commentDeleteAction" class="board.commentDeleteAction">
-		<result type="chain">listAction</result>
+		<result type="chain">viewAction</result>
 	</action> 
 	
 	</package>

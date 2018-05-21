@@ -159,6 +159,7 @@ function open_win_noresizable (url, name) {
 			<td height="10" width="130" align="center">
 				<s:property value="commenter" /><br>
 				<s:property value="regdate" /><br><br>
+				<s:property value="commentNum" /><br><br>
 			</td>
 			<td><s:property value="comment"/>
 			&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:open_win_noresizable('checkForm2.action?no=<s:property value="no"/>&commentNum=<s:property value="commentNum"/>&currentPage=<s:property value="currentPage"/>','cdelete')"><font color="red">X</font></a>		

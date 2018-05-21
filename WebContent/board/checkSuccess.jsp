@@ -20,9 +20,11 @@ function locationURL() {
 			}
 		else if(window.name =='cdelete')
 			{
-			alert("삭제되었습니다.");
-			window.opener.parent.location.href='commentDeleteAction.action?no=<s:property value="no"/>&currentPage=<s:property value="currentPage"/>';
+			alert("코멘트가 삭제되었습니다.");
+			window.opener.parent.location.href='commentDeleteAction.action?no=<s:property value="no"/>&currentPage=<s:property value="currentPage"/>&commentNum=<s:property value="commentNum"/>';
 			}
+	
+	
 			window.close();		
 }
 </script>
