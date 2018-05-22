@@ -76,7 +76,7 @@
 		<result type="chain">listAction</result>
 	</action>
 	
-	<action name="CommentWriteAction" class="board.CommentWriteAction">
+	<action name="CommentWriteAction" class="board.writeAction" method="execute2">
 		<result type="chain">viewAction</result>
 	
 	</action>
@@ -90,7 +90,7 @@
 		<result>/board/checkPassword2.jsp</result>
 	</action>
 	
-	 <action name="commentDeleteAction" class="board.commentDeleteAction">
+	 <action name="commentDeleteAction" class="board.deleteAction" method="execute2">
 		<result type="chain">viewAction</result>
 	</action> 
 	

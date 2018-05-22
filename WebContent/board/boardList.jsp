@@ -58,7 +58,11 @@
 <s:if test="ref_level!=0">
 <c:forEach var = "i" end = "${ref_level}" begin = "0">
 &nbsp;</c:forEach>¡æ
-</s:if><s:a href="%{viewURL}"><s:property value="subject"/></s:a></td>
+</s:if><s:a href="%{viewURL}"><s:property value="subject"/></s:a>
+<s:if test="comment_count != 0">
+<font color="red">[<s:property value="comment_count"/>]</font>
+</s:if>
+</td>
 <td align="center"><s:property value="name"/></td>
 <td align="center"><s:property value="regdate"/></td>
 <td><s:property value="readhit"/></td>

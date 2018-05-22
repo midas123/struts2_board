@@ -23,6 +23,9 @@ public class deleteAction extends ActionSupport {
 	
 	private int no;
 	
+	private int commentNum;
+	private CommentVO commentClass;
+	
 	public deleteAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
@@ -43,6 +46,41 @@ public class deleteAction extends ActionSupport {
 		sqlMapper.update("deleteBoard", paramClass);
 	
 		return SUCCESS;
+	}
+
+
+	public String execute2() throws Exception {
+		commentClass = new CommentVO();
+		resultClass = new boardVO();
+		paramClass = new boardVO();
+
+
+		commentClass.setCommmentNum(getCommentNum());
+		
+		sqlMapper.update("deleteComment", commentClass);
+		paramClass.setNo(getNo());
+		sqlMapper.update("updateComCount",paramClass);
+
+		return SUCCESS;
+		
+	}
+	
+	
+	
+	public int getCommentNum() {
+		return commentNum;
+	}
+
+	public void setCommentNum(int commentNum) {
+		this.commentNum = commentNum;
+	}
+
+	public CommentVO getCommentClass() {
+		return commentClass;
+	}
+
+	public void setCommentClass(CommentVO commentClass) {
+		this.commentClass = commentClass;
 	}
 
 	public static Reader getReader() {

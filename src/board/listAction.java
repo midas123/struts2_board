@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.io.IOException;
 
 import board.pagingAction;
+import board.CommentVO;
 
 public class listAction extends ActionSupport {
 	
@@ -29,6 +30,7 @@ public class listAction extends ActionSupport {
 	private int ref_step =0;
 	private int ref_level=0;
 	
+	private int comment_count;
 
 	public listAction() throws IOException{
 		// TODO Auto-generated constructor stub
@@ -53,8 +55,12 @@ public class listAction extends ActionSupport {
 			lastCount = page.getEndCount() + 1;
 		list = list.subList(page.getStartCount(), lastCount);
 		
+		
+		
+		
 		return SUCCESS;
 	}
+	
 
 	public static Reader getReader() {
 		return reader;
@@ -150,6 +156,14 @@ public class listAction extends ActionSupport {
 
 	public void setRef(int ref) {
 		this.ref = ref;
+	}
+
+	public int getComment_count() {
+		return comment_count;
+	}
+
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
 	}	
 	
 	

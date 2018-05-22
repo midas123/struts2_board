@@ -33,6 +33,16 @@ public class writeAction extends ActionSupport {
 	private int ref_level;
 	private int ref_step;
 	
+	//댓글
+	private String commenter;
+	private String comment;
+	private String passwd;
+	private Date regdate;
+	
+	private CommentVO commentClass;
+	
+	
+	
 	Calendar today = Calendar.getInstance();
 	
 	//Upload에는 boardWrite.jsp에서 업로드한 파일의 임시파일 경로가 담겨있다.
@@ -101,6 +111,28 @@ public class writeAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+public String execute2() throws Exception{
+	paramClass = new boardVO();
+
+		commentClass = new CommentVO();
+		
+		commentClass.setNo(getNo());
+		commentClass.setCommenter(getCommenter());
+		commentClass.setComment(getComment());
+		commentClass.setPasswd(getPasswd());
+		commentClass.setRegdate(today.getTime());
+		
+		paramClass.setNo(getNo());
+		
+		sqlMapper.insert("insertComment", commentClass); 
+		sqlMapper.update("updateComCount",paramClass);
+		
+		return SUCCESS;
+	}
+
+	
+	
+
 
 	public static Reader getReader() {
 		return reader;
@@ -261,8 +293,48 @@ public class writeAction extends ActionSupport {
 	public void setRef_step(int ref_step) {
 		this.ref_step = ref_step;
 	}
-	
 
+	public String getCommenter() {
+		return commenter;
+	}
+
+	public void setCommenter(String commenter) {
+		this.commenter = commenter;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public String getPasswd() {
+		return passwd;
+	}
+
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	public CommentVO getCommentClass() {
+		return commentClass;
+	}
+
+	public void setCommentClass(CommentVO commentClass) {
+		this.commentClass = commentClass;
+	}
+	
+	
 	
 	
 }

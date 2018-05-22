@@ -17,10 +17,11 @@
 		<result property="ref" column="ref"/>
 		<result property="ref_level" column="ref_level"/>
 		<result property="ref_step" column="ref_step"/>
+		<result property="comment_count" column="comment_count" nullValue="0"/>
 	</resultMap>
 	
 	<resultMap class="comment" id="commentRes">
-		<result property="no" column="num"/>
+		<result property="no" column="no"/>
 		<result property="commenter" column="commenter"/>
 		<result property="commentNum" column="commentnum"/>
 		<result property="comment" column="commentt"/>
@@ -73,7 +74,7 @@
 	</select>
 	
 	<select id="selectcommentAll" resultMap="commentRes" parameterClass="comment">
-		SELECT * FROM SCOMMENT_00 WHERE NUM = #no# ORDER BY NUM DESC
+		SELECT * FROM SCOMMENT_00 WHERE NO = #no# ORDER BY NO DESC
 	</select>
 	
 	<select id="selectPassword2" resultMap="commentRes" parameterClass="comment">
@@ -91,8 +92,14 @@
 	</insert>
 	
 	<insert id="insertComment" parameterClass="comment">
-	INSERT INTO SCOMMENT_00 (NUM,COMMENTER,COMMENTT,PASSWD,REGDATE,COMMENTNUM) VALUES (#no#, #commenter#, #comment#, #passwd#, #regdate#, scomment_numberseq_00.NEXTVAL)
+	INSERT INTO SCOMMENT_00 (NO,COMMENTER,COMMENTT,PASSWD,REGDATE,COMMENTNUM) VALUES (#no#, #commenter#, #comment#, #passwd#, #regdate#, scomment_numberseq_00.NEXTVAL)
 	</insert>
+	
+	
+<update id="updateComCount" parameterClass="board">
+UPDATE SBoard_00 SET comment_count = (SELECT count(*)FROM SComment_00 WHERE no=#no#) WHERE no=#no#
+</update>
+
 
 <update id="updateBoard" parameterClass="board">
 	UPDATE SBOARD_00 SET SUBJECT = #subject#,
@@ -122,6 +129,7 @@
 <delete id="deleteComment" parameterClass="comment">
 	DELETE FROM SCOMMENT_00
 	WHERE COMMENTNUM = #commentNum#
+	
 </delete>
 
 </sqlMap>
