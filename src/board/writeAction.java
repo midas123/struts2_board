@@ -130,6 +130,26 @@ public String execute2() throws Exception{
 		return SUCCESS;
 	}
 
+public String idcheck() throws Exception {
+	
+	return SUCCESS;
+}
+
+public String emailcheck() throws Exception {
+	
+	return SUCCESS;
+}
+
+public String joinform() throws Exception {
+	
+	return SUCCESS;
+}
+
+public String agree() throws Exception {
+	
+	return SUCCESS;
+}
+
 	
 	
 

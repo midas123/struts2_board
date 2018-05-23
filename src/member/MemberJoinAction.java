@@ -1,11 +1,356 @@
 package member;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
+
+import board.boardVO;
+
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
+import java.util.*;
+import java.io.Reader;
+import java.io.IOException;
 
-public class MemberJoinAction extends ActionSupport{
+import java.io.File;
+import org.apache.commons.io.FileUtils;
 
+import member.MemberVO;
+
+
+public class MemberJoinAction extends ActionSupport implements Preparable, ModelDriven<MemberVO>{
+	//SQL 맵핑
+	public static Reader reader;
+	public static SqlMapClient sqlMapper;
+	
+	Calendar today = Calendar.getInstance();
+	
+	//파일 업로드
+	private File Upload;
+	private String uploadContentType;
+	private String uploadFileName;
+	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
+	
+	//회원가입 속성
+	private String m_ID;
+	private String m_passwd;
+	private String m_name;
+	private String m_mobilephone; //VARCHAR2(14)
+	private int m_birthyear; //NUMBER
+	private String m_region;
+	private String m_email;
+	private String m_nickname;
+	private Date m_joindate;
+	private int admin_yn;
+	
+	
+	private MemberVO memberParam;
+	private MemberVO memberResult;
+	private File imageupload;
+	
+	public MemberJoinAction() throws IOException {
+		// TODO Auto-generated constructor stub
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
+		reader.close();
+	
+	}
+	@Override
+	public void prepare() throws Exception {
+		// TODO Auto-generated method stub
+		memberParam = new MemberVO();
+	}
+	
+	@Override
+	public MemberVO getModel() {
+		// TODO Auto-generated method stub
+		return memberParam;
+	}
+	
+	public String execute() throws Exception {
+		memberResult = new MemberVO();
+		
+		sqlMapper.insert("insertBoard", memberParam);
+
+		
+		if(getUpload() != null) {
+			//DB에서 num 칼럼에서 최대값에 해당하는 게시글을 가져와 객체에 담는다.
+			memberResult = (MemberVO) sqlMapper.queryForObject("IDresult");
+		
+			//파일명 + ID
+			String file_name = "file_" + memberResult.getM_ID();
+			//파일 확장자를 가져온다
+			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1, getUploadFileName().length());
+			//파일의 경로와 이름을 file객체에 담는다
+			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
+			//임시파일을 복사 후 설정한 이름과 경로(서버 컴퓨터)에 저장한다.원본이름을 그대로 저장하면 파일중복이 발생할 수 있다.
+			FileUtils.copyFile(getUpload(), destFile);
+			
+			memberParam.setM_ID(memberResult.getM_ID());
+			memberParam.setProf_image_org(getUploadFileName());
+			memberParam.setProf_image_save(file_name+"."+file_ext);
+			
+			//DB에 파일의 원본이름과 새로 설정한 이름을 업데이트한다.
+			sqlMapper.update("updateFile", memberParam);
+		}
+		return SUCCESS;
+		
+	}
+	public String idcheck() throws Exception {
+		
+		return SUCCESS;
+	}
+
+	public String emailcheck() throws Exception {
+		
+		return SUCCESS;
+	}
+
+	public String joinform() throws Exception {
+		
+		return SUCCESS;
+	}
+
+	public String agree() throws Exception {
+		
+		return SUCCESS;
+	}
+	
+	
+	
+	public MemberVO getMemberParam() {
+		return memberParam;
+	}
+
+
+	public MemberVO getMemberResult() {
+		return memberResult;
+	}
+
+
+	public void setMemberParam(MemberVO memberParam) {
+		this.memberParam = memberParam;
+	}
+
+
+	public void setMemberResult(MemberVO memberResult) {
+		this.memberResult = memberResult;
+	}
+
+
+	public File getImageupload() {
+		return imageupload;
+	}
+
+
+	public void setImageupload(File imageupload) {
+		this.imageupload = imageupload;
+	}
+
+
+
+	public static Reader getReader() {
+		return reader;
+	}
+
+
+
+	public static SqlMapClient getSqlMapper() {
+		return sqlMapper;
+	}
+
+
+
+	public Calendar getToday() {
+		return today;
+	}
+
+
+
+	public File getUpload() {
+		return Upload;
+	}
+
+
+
+	public String getUploadContentType() {
+		return uploadContentType;
+	}
+
+
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+
+
+	public String getFileUploadPath() {
+		return fileUploadPath;
+	}
+
+
+
+	public String getM_ID() {
+		return m_ID;
+	}
+
+
+
+	public String getM_passwd() {
+		return m_passwd;
+	}
+
+
+
+	public String getM_name() {
+		return m_name;
+	}
+
+
+
+	public String getM_mobilephone() {
+		return m_mobilephone;
+	}
+
+
+
+	public int getM_birthyear() {
+		return m_birthyear;
+	}
+
+
+
+	public String getM_region() {
+		return m_region;
+	}
+
+
+
+	public String getM_email() {
+		return m_email;
+	}
+
+
+
+	public String getM_nickname() {
+		return m_nickname;
+	}
+
+
+
+	public Date getM_joindate() {
+		return m_joindate;
+	}
+
+
+
+	public int getAdmin_yn() {
+		return admin_yn;
+	}
+
+	public static void setReader(Reader reader) {
+		MemberJoinAction.reader = reader;
+	}
+
+
+
+	public static void setSqlMapper(SqlMapClient sqlMapper) {
+		MemberJoinAction.sqlMapper = sqlMapper;
+	}
+
+
+
+	public void setToday(Calendar today) {
+		this.today = today;
+	}
+
+
+
+	public void setUpload(File upload) {
+		Upload = upload;
+	}
+
+
+
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+
+
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
+
+
+	public void setFileUploadPath(String fileUploadPath) {
+		this.fileUploadPath = fileUploadPath;
+	}
+
+
+
+	public void setM_ID(String m_ID) {
+		this.m_ID = m_ID;
+	}
+
+
+
+	public void setM_passwd(String m_passwd) {
+		this.m_passwd = m_passwd;
+	}
+
+
+
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
+	}
+
+
+
+	public void setM_mobilephone(String m_mobilephone) {
+		this.m_mobilephone = m_mobilephone;
+	}
+
+
+
+	public void setM_birthyear(int m_birthyear) {
+		this.m_birthyear = m_birthyear;
+	}
+
+
+
+	public void setM_region(String m_region) {
+		this.m_region = m_region;
+	}
+
+
+
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
+	}
+
+
+
+	public void setM_nickname(String m_nickname) {
+		this.m_nickname = m_nickname;
+	}
+
+
+
+	public void setM_joindate(Date m_joindate) {
+		this.m_joindate = m_joindate;
+	}
+
+
+
+	public void setAdmin_yn(int admin_yn) {
+		this.admin_yn = admin_yn;
+	}
+
+	
+	
 }
