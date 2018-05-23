@@ -3,6 +3,7 @@
 <sqlMap>
 	<typeAlias alias="board" type="board.boardVO"/>
 	<typeAlias alias="comment" type="board.CommentVO"/>
+	<typeAlias alias="member" type="member.MemberVO"/>
 	
 	<resultMap id="boardRes" class="board">
 		<result property="no" column="no"/>
@@ -27,6 +28,22 @@
 		<result property="comment" column="commentt"/>
 		<result property="regdate" column="regdate"/>
 		<result property="passwd" column="passwd"/>
+	</resultMap>
+	
+		
+	<resultMap id="memberRes" class="member">
+		<result property="m_ID" column="m_id"/>
+		<result property="m_passwd" column="m_passwd"/>
+		<result property="m_name" column="m_name"/>
+		<result property="m_mobilephone" column="m_mobilephone"/>
+		<result property="m_birthyear" column="m_birthyear"/>
+		<result property="m_region" column="m_region"/>
+		<result property="m_email" column="m_email"/>
+		<result property="m_nickname" column="m_nickname"/>
+		<result property="m_joindate" column="m_joindate"/>
+		<result property="m_admin_yn" column="m_admin_yn"/>
+		<result property="prof_image_org" column="prof_image_org"/>
+		<result property="prof_image_save" column="prof_image_save"/>
 	</resultMap>
 
 	<sql id="select-all">
@@ -131,5 +148,22 @@ UPDATE SBoard_00 SET comment_count = (SELECT count(*)FROM SComment_00 WHERE no=#
 	WHERE COMMENTNUM = #commentNum#
 	
 </delete>
+
+
+<!-- 회원가입 -->
+<insert id="insertmember" parameterClass="member">
+	INSERT INTO MEMBER_000 (m_id, m_passwd, m_name, m_mobilephone, m_birthyear, 
+	m_region, m_email, m_nickname, m_joindate, m_admin_yn, prof_image_org, prof_image_save)
+	 VALUES (#m_ID#, #m_passwd#, #m_name#, #m_mobilephone#, #m_birthyear#, #m_region#, 
+	 #m_email#, #m_nickname#, #m_joindate#, #m_admin_yn#, #prof_image_org#, #prof_image_save#)
+	
+	</insert>
+	
+<update id="updateFile2" parameterClass="member">
+	UPDATE MEMBER_000 SET prof_image_org = #prof_image_org#,
+	prof_image_save = #prof_image_save# 
+	WHERE M_ID=#m_ID#
+</update>
+
 
 </sqlMap>

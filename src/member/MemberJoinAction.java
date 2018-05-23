@@ -25,13 +25,13 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	Calendar today = Calendar.getInstance();
+	Calendar m_joindate = Calendar.getInstance();
 	
 	//파일 업로드
 	private File Upload;
 	private String uploadContentType;
 	private String uploadFileName;
-	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
+	private String fileUploadPath = "C:\\Users\\yk\\Desktop\\upload\\";
 	
 	//회원가입 속성
 	private String m_ID;
@@ -42,13 +42,12 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private String m_region;
 	private String m_email;
 	private String m_nickname;
-	private Date m_joindate;
-	private int admin_yn;
-	
+	private int m_admin_yn;
+	private int genUser =0;
+	private int adminUser = 1;
 	
 	private MemberVO memberParam;
 	private MemberVO memberResult;
-	private File imageupload;
 	
 	public MemberJoinAction() throws IOException {
 		// TODO Auto-generated constructor stub
@@ -70,30 +69,33 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	}
 	
 	public String execute() throws Exception {
-		memberResult = new MemberVO();
-		
-		sqlMapper.insert("insertBoard", memberParam);
+		memberParam.setM_admin_yn(genUser);
+		memberParam.setM_joindate(m_joindate.getTime());
+		sqlMapper.insert("insertmember", memberParam);
 
 		
 		if(getUpload() != null) {
 			//DB에서 num 칼럼에서 최대값에 해당하는 게시글을 가져와 객체에 담는다.
-			memberResult = (MemberVO) sqlMapper.queryForObject("IDresult");
+			//memberResult = (MemberVO) sqlMapper.queryForObject("IDresult");
 		
 			//파일명 + ID
-			String file_name = "file_" + memberResult.getM_ID();
+			String file_name = "file_" + memberParam.getM_ID();
 			//파일 확장자를 가져온다
 			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1, getUploadFileName().length());
 			//파일의 경로와 이름을 file객체에 담는다
 			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
+
+			System.out.println("name:"+file_name);
+			System.out.println("ext:"+file_ext);
 			//임시파일을 복사 후 설정한 이름과 경로(서버 컴퓨터)에 저장한다.원본이름을 그대로 저장하면 파일중복이 발생할 수 있다.
 			FileUtils.copyFile(getUpload(), destFile);
 			
-			memberParam.setM_ID(memberResult.getM_ID());
+			memberParam.setM_ID(memberParam.getM_ID());
 			memberParam.setProf_image_org(getUploadFileName());
 			memberParam.setProf_image_save(file_name+"."+file_ext);
 			
 			//DB에 파일의 원본이름과 새로 설정한 이름을 업데이트한다.
-			sqlMapper.update("updateFile", memberParam);
+			sqlMapper.update("updateFile2", memberParam);
 		}
 		return SUCCESS;
 		
@@ -140,17 +142,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	}
 
 
-	public File getImageupload() {
-		return imageupload;
-	}
-
-
-	public void setImageupload(File imageupload) {
-		this.imageupload = imageupload;
-	}
-
-
-
 	public static Reader getReader() {
 		return reader;
 	}
@@ -159,12 +150,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 
 	public static SqlMapClient getSqlMapper() {
 		return sqlMapper;
-	}
-
-
-
-	public Calendar getToday() {
-		return today;
 	}
 
 
@@ -241,16 +226,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 
 
 
-	public Date getM_joindate() {
-		return m_joindate;
-	}
-
-
-
-	public int getAdmin_yn() {
-		return admin_yn;
-	}
-
 	public static void setReader(Reader reader) {
 		MemberJoinAction.reader = reader;
 	}
@@ -262,10 +237,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	}
 
 
-
-	public void setToday(Calendar today) {
-		this.today = today;
-	}
 
 
 
@@ -341,16 +312,31 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 
 
 
-	public void setM_joindate(Date m_joindate) {
+	public Calendar getM_joindate() {
+		return m_joindate;
+	}
+	public void setM_joindate(Calendar m_joindate) {
 		this.m_joindate = m_joindate;
 	}
-
-
-
-	public void setAdmin_yn(int admin_yn) {
-		this.admin_yn = admin_yn;
+	public int getM_admin_yn() {
+		return m_admin_yn;
 	}
-
+	public void setM_admin_yn(int m_admin_yn) {
+		this.m_admin_yn = m_admin_yn;
+	}
+	public int getGenUser() {
+		return genUser;
+	}
+	public void setGenUser(int genUser) {
+		this.genUser = genUser;
+	}
+	public int getAdminUser() {
+		return adminUser;
+	}
+	public void setAdminUser(int adminUser) {
+		this.adminUser = adminUser;
+	}
+	
 	
 	
 }

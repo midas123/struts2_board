@@ -13,7 +13,7 @@ public class MemberVO {
 	private String m_email;
 	private String m_nickname;
 	private Date m_joindate;
-	private int admin_yn;
+	private int m_admin_yn;
 	private String prof_image_org;
 	private String prof_image_save;
 	public String getM_ID() {
@@ -43,9 +43,7 @@ public class MemberVO {
 	public Date getM_joindate() {
 		return m_joindate;
 	}
-	public int getAdmin_yn() {
-		return admin_yn;
-	}
+
 	public String getProf_image_org() {
 		return prof_image_org;
 	}
@@ -79,14 +77,18 @@ public class MemberVO {
 	public void setM_joindate(Date m_joindate) {
 		this.m_joindate = m_joindate;
 	}
-	public void setAdmin_yn(int admin_yn) {
-		this.admin_yn = admin_yn;
-	}
+	
 	public void setProf_image_org(String prof_image_org) {
 		this.prof_image_org = prof_image_org;
 	}
 	public void setProf_image_save(String prof_image_save) {
 		this.prof_image_save = prof_image_save;
+	}
+	public int getM_admin_yn() {
+		return m_admin_yn;
+	}
+	public void setM_admin_yn(int m_admin_yn) {
+		this.m_admin_yn = m_admin_yn;
 	}
 	
 	

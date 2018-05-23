@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org/DTD sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlmap>
+	<typeAlias alias="member" type="member.MemberVO"/>
+	
+	<resultMap id="memberRes" class="member">
+		<result property="m_ID" column="m_id"/>
+		<result property="m_passwd" column="m_passwd"/>
+		<result property="m_name" column="m_name"/>
+		<result property="m_mobilephone" column="m_mobilephone"/>
+		<result property="m_birthyear" column="m_birthyear"/>
+		<result property="m_region" column="m_region"/>
+		<result property="m_email" column="m_email"/>
+		<result property="m_nickname" column="m_nickname"/>
+		<result property="m_joindate" column="m_joindate"/>
+		<result property="admin_yn" column="admin_yn"/>
+		<result property="prof_image_org" column="prof_image_org"/>
+		<result property="prof_image_save" column="prof_image_save"/>
+	</resultMap>
+	
+	<insert id="insertmember" parameterClass="member">
+	INSERT INTO MEMBER_000 (m_id, m_passwd, m_name, m_mobilephone, m_birthyear, 
+	m_region, m_email, m_nickname, m_joindate, admin_yn, prof_image_org, prof_image_save)
+	 VALUES (#m_ID#, #m_passwd#, #m_name#, #m_mobilephone#, #m_birthyear#, #m_region#, 
+	 #m_email#, #m_nickname#, #m_joindate#, #admin_yn#, #prof_image_org#, #prof_image_save#)
+	
+	</insert>
+	
+
+</sqlmap>

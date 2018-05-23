@@ -24,4 +24,5 @@
 	</dataSource>
 	</transactionManager>
 	<sqlMap resource="/sql/boardSQL.xml"/>
+
 </sqlMapConfig>

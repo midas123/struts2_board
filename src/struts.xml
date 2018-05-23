@@ -96,5 +96,13 @@
 	
 	</package>
 	
+	<package name="member" extends="struts-default">
+	<action name="MemberJoinAction" class="member.MemberJoinAction">
+		<result>/member/main.jsp</result>
+	</action>
+	
+	
+	
+	</package>
 	
 </struts>
