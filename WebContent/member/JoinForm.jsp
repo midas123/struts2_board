@@ -12,7 +12,7 @@
 <script language="javaScript">
 	function checkIt(){
 		var useinput = eval("document.userinput");
-		if(!userinput.m_id.value) {
+		if(!userinput.m_ID.value) {
 			alert("ID를 입력하세요");
 			return false;
 		}
@@ -30,6 +30,36 @@
 		
 		if(!userinput.m_name.value) {
 			alert("사용자 이름을 입력하세요");
+			return false;
+		}
+		
+		if(!userinput.m_nickname.value) {
+			alert("닉네임을 입력하세요");
+			return false;
+		}
+		
+		if(!userinput.m_mobilephone.value) {
+			alert("휴대폰번호를 입력하세요");
+			return false;
+		}
+		
+		if(!userinput.m_region.value) {
+			alert("지역명을 입력하세요");
+			return false;
+		}
+		
+		if(!userinput.m_birthyear.value) {
+			alert("출생연도를 입력하세요");
+			return false;
+		}
+		
+		if(isNan(userinput.m_birthyear.value)) {
+			alert("출생연도는 숫자로 입력하세요");
+			return false;
+		}
+		
+		if(!userinput.m_email.value) {
+			alert("이메일을 입력하세요");
 			return false;
 		}
 		
