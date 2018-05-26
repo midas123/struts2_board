@@ -12,10 +12,16 @@
 <script language="javaScript">
 	function checkIt(){
 		var useinput = eval("document.userinput");
-		if(!userinput.m_ID.value) {
+		var id = userinput.m_ID.value
+		if(!id) {
 			alert("ID를 입력하세요");
 			return false;
 		}
+		else if((id < "0" || id > "9") && (id < "A" || id > "Z") && (id < "a" || id > "z")){ 
+            alert("한글 및 특수문자는 아이디로 사용하실 수 없습니다.");
+            return false;
+		}
+
 		
 		if(!userinput.m_passwd.value) {
 			alert("비밀번호를 입력하세요");
@@ -32,6 +38,12 @@
 			alert("사용자 이름을 입력하세요");
 			return false;
 		}
+		if (!isNaN(userinput.m_name.value))	{
+			alert("사용자 이름은 문자로 입력하세요");
+		
+			return false;
+		}
+		
 		
 		if(!userinput.m_nickname.value) {
 			alert("닉네임을 입력하세요");
@@ -42,6 +54,11 @@
 			alert("휴대폰번호를 입력하세요");
 			return false;
 		}
+			
+		if (isNaN(userinput.m_mobilephone.value))	{
+			alert("휴대폰 번호는 '-'를 제외한 숫자로 입력하세요");
+			return false;
+		}
 		
 		if(!userinput.m_region.value) {
 			alert("지역명을 입력하세요");
@@ -49,12 +66,12 @@
 		}
 		
 		if(!userinput.m_birthyear.value) {
-			alert("출생연도를 입력하세요");
+			alert("출생년월을 입력하세요");
 			return false;
 		}
 		
-		if(isNan(userinput.m_birthyear.value)) {
-			alert("출생연도는 숫자로 입력하세요");
+		if(isNaN(userinput.m_birthyear.value)) {
+			alert("출생년월을 숫자로 입력하세요");
 			return false;
 		}
 		
@@ -63,16 +80,22 @@
 			return false;
 		}
 		
-		
 	}
-	 // 아이디 중복 여부를 판단
+	 // 아이디 중복체크 창 오픈
 	function openConfirmid(userinput) {
-		if(userinput.m_id.value == ""){
+		var id = userinput.m_ID.value
+		if(id == ""){
 			alert("아이디를 입력하세요");
 			return;
 		}
+		 else if((id < "0" || id > "9") && (id < "A" || id > "Z") && (id < "a" || id > "z")){ 
+             alert("한글 및 특수문자는 아이디로 사용하실 수 없습니다.");
+             return false;
+         }
+	
 	//url과 사용자 입력 id를 조합합니다.	
-	url = "confirmId.jsp?id=" + userinput.m_id.value;
+	url = "memberIdCheck.action?m_ID="+id;
+	//url = "<s:url action='memberIdCheck.action'/>"+"?m_ID="+id;
 	//새로운 윈도우를 엽니다.
 	open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 	}
@@ -105,8 +128,7 @@
 			<td width="200"> 사용자 ID </td>
 			<td width="400">
 				<input type="text" name="m_ID" size="10" maxlength="12">
-<!-- 				<input type="button" name="confirm_id" value="ID중복확인" OnClick="openConfirmid(this.form)">
- -->			</td>	
+				<input type="button" name="check_id" value="ID중복확인" OnClick="openConfirmid(this.form)">
 		</tr>
 		<tr>
 			<td width="200">비밀번호</td>
@@ -136,10 +158,23 @@
 				<input type="text" name="m_nickname" size="15" maxlength="10">
 			</td>
 		</tr>
+
+			<tr>
+			<td width="200">포지션</td>
+			<td width="400">
+			<select name="m_position">
+			<option>공격수</option>
+			<option>미드펄더</option>
+			<option>수비수</option>
+			<option>골키퍼</option>
+			</select>
+			</td>
+		</tr>
+		
 		<tr>
 			<td width="200">휴대폰 번호</td>
 			<td width="400">
-				<input type="text" name="m_mobilephone" size="11">
+				<input type="text" name="m_mobilephone" size="11"> <font size="2">예시)010-1111-1111</font>
 				
 			</td>
 		</tr>				
@@ -150,10 +185,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td width="200">출생연도</td>
+			<td width="200">출생년월</td>
 			<td width="400">
 				<input type="text" name="m_birthyear" size="10">
-			</td>
+			<font size="2">예시)1990-01-01</font></td>
 		</tr>
 		<tr>
 			<td width="200">이메일</td>

@@ -42,12 +42,16 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private String m_region;
 	private String m_email;
 	private String m_nickname;
-	private int m_admin_yn;
+	private int admin_yn;
 	private int genUser =0;
 	private int adminUser = 1;
+	private String m_position;
 	
 	private MemberVO memberParam;
 	private MemberVO memberResult;
+	
+	//아이디 중복 체크
+	private int idcheckresult = 0;
 	
 	public MemberJoinAction() throws IOException {
 		// TODO Auto-generated constructor stub
@@ -75,8 +79,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 
 		
 		if(getUpload() != null) {
-			//DB에서 num 칼럼에서 최대값에 해당하는 게시글을 가져와 객체에 담는다.
-			//memberResult = (MemberVO) sqlMapper.queryForObject("IDresult");
 		
 			//파일명 + ID
 			String file_name = "file_" + memberParam.getM_ID();
@@ -85,8 +87,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 			//파일의 경로와 이름을 file객체에 담는다
 			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
 
-			System.out.println("name:"+file_name);
-			System.out.println("ext:"+file_ext);
 			//임시파일을 복사 후 설정한 이름과 경로(서버 컴퓨터)에 저장한다.원본이름을 그대로 저장하면 파일중복이 발생할 수 있다.
 			FileUtils.copyFile(getUpload(), destFile);
 			
@@ -101,7 +101,10 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		
 	}
 	public String idcheck() throws Exception {
-		
+		//사용자가 입력한 id값을 받는다. select where조건 쿼리문으로 DB에서 같은 값을 찾는다. 결과값에 따라서 값을 준다.
+		memberResult = (MemberVO)sqlMapper.queryForObject("idcheck", memberParam);
+		if(memberResult == null)
+			idcheckresult = 1;
 		return SUCCESS;
 	}
 
@@ -122,6 +125,12 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	
 	
 	
+	public int getIdcheckresult() {
+		return idcheckresult;
+	}
+	public void setIdcheckresult(int idcheckresult) {
+		this.idcheckresult = idcheckresult;
+	}
 	public MemberVO getMemberParam() {
 		return memberParam;
 	}
@@ -319,10 +328,10 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		this.m_joindate = m_joindate;
 	}
 	public int getM_admin_yn() {
-		return m_admin_yn;
+		return admin_yn;
 	}
 	public void setM_admin_yn(int m_admin_yn) {
-		this.m_admin_yn = m_admin_yn;
+		this.admin_yn = m_admin_yn;
 	}
 	public int getGenUser() {
 		return genUser;
@@ -335,6 +344,18 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	}
 	public void setAdminUser(int adminUser) {
 		this.adminUser = adminUser;
+	}
+	public int getAdmin_yn() {
+		return admin_yn;
+	}
+	public void setAdmin_yn(int admin_yn) {
+		this.admin_yn = admin_yn;
+	}
+	public String getM_position() {
+		return m_position;
+	}
+	public void setM_position(String m_position) {
+		this.m_position = m_position;
 	}
 	
 	

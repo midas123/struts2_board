@@ -39,7 +39,6 @@ public class modifyAction extends ActionSupport {
 	}
 	
 	public String execute() throws Exception {
-		System.out.println(upload);
 		paramClass = new boardVO();
 		resultClass = new boardVO();
 	

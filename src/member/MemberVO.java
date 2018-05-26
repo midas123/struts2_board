@@ -13,9 +13,25 @@ public class MemberVO {
 	private String m_email;
 	private String m_nickname;
 	private Date m_joindate;
-	private int m_admin_yn;
+	private String m_position;
+	private int admin_yn;
 	private String prof_image_org;
 	private String prof_image_save;
+	
+	
+	
+	public String getM_position() {
+		return m_position;
+	}
+	public void setM_position(String m_position) {
+		this.m_position = m_position;
+	}
+	public int getAdmin_yn() {
+		return admin_yn;
+	}
+	public void setAdmin_yn(int admin_yn) {
+		this.admin_yn = admin_yn;
+	}
 	public String getM_ID() {
 		return m_ID;
 	}
@@ -85,10 +101,10 @@ public class MemberVO {
 		this.prof_image_save = prof_image_save;
 	}
 	public int getM_admin_yn() {
-		return m_admin_yn;
+		return admin_yn;
 	}
 	public void setM_admin_yn(int m_admin_yn) {
-		this.m_admin_yn = m_admin_yn;
+		this.admin_yn = m_admin_yn;
 	}
 	
 	

@@ -7,6 +7,24 @@
 
 	<constant name="struts.multipart.maxSize" value="104857600"/>
 	
+	
+	
+	<package name="member" extends="struts-default">
+	<action name="MemberJoinAction" class="member.MemberJoinAction">
+		<result>/member/main.jsp</result>
+	</action>
+	
+	<action name="memberIdCheck" class="member.MemberJoinAction" method="idcheck">
+		<result>/member/idCheck.jsp</result>	
+	</action>
+	
+	
+	</package>
+	
+	
+	
+	
+	
 	<package name="board" extends="struts-default">
 	
 <!-- 	<global-result>
@@ -96,13 +114,6 @@
 	
 	</package>
 	
-	<package name="member" extends="struts-default">
-	<action name="MemberJoinAction" class="member.MemberJoinAction">
-		<result>/member/main.jsp</result>
-	</action>
-	
-	
-	
-	</package>
+
 	
 </struts>
