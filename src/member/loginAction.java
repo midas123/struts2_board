@@ -4,6 +4,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
+import mail.Emailsend;
+
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
@@ -106,7 +108,16 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	}
 	
 
-	public String findPw() {
+	public String findPw() throws Exception{
+		memberResult = (MemberVO)sqlMapper.queryForObject("findPw", memberParam);
+		System.out.println(memberResult.getM_name());
+
+		String subject = memberResult.getM_name()+"님, 비밀번호를 알려드립니다. -Arista";
+		String content = "고객님의 아이디: " + memberResult.getM_ID() + " 비밀번호: " + memberResult.getM_passwd();
+		Emailsend mail = new Emailsend();
+		mail.GmailSet(memberResult.getM_email(), subject, content);
+
+
 		
 		return SUCCESS;
 	}

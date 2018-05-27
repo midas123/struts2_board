@@ -74,10 +74,15 @@
 </select>
 
 <!-- ID 찾기 -->
-<select id="findId" remapResults="true" resultMap="memberRes" parameterClass="member">
+<select id="findId" resultMap="memberRes" parameterClass="member">
 	SELECT * FROM MEMBER_000 WHERE M_NAME=#m_name# AND M_EMAIL=#m_email#
 </select>
 
+
+<!-- 비밀번호 찾기 -->
+<select id="findPw" resultMap="memberRes" parameterClass="member">
+	SELECT * FROM MEMBER_000 WHERE M_NAME=#m_name# AND M_EMAIL=#m_email# AND M_ID=#m_ID#
+</select>
 
 
 <!-- 게시판 예제 -->

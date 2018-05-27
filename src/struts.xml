@@ -36,6 +36,18 @@
 	<action name="findIDPro" class="member.loginAction" method="findId">
 		<result>/member/findIDresult.jsp</result>
 	</action>	
+
+<!-- 비밀번호 찾기 -->	
+	<action name="findPWForm" class="member.loginAction" method="findpwform">
+		<result>/member/findPWForm.jsp</result>
+	</action>
+
+	<action name="findPWPro" class="member.loginAction" method="findPw">
+		<result>/member/findPWresult.jsp</result>
+	</action>	
+	
+	
+	
 	
 	</package>
 	

@@ -12,12 +12,12 @@ function begin() {
 function checkIt() {
 	if(!document.findid.m_name.value){
 		alert("이름을 입력하지 않으셨습니다.");
-		document.myform.m_name.focus();
+		document.findid.m_name.focus();
 		return false;
 	}
 	if(!document.findid.m_email.value){
 		alert("이메일을 입력하지 않으셨습니다.");
-		document.myform.m_email.focus();
+		document.findid.m_email.focus();
 		return false;
 	}
 }
