@@ -7,9 +7,9 @@
 
 	<constant name="struts.multipart.maxSize" value="104857600"/>
 	
-	
-	
+<!-- 회원가입  -->	
 	<package name="member" extends="struts-default">
+	
 	<action name="MemberJoinAction" class="member.MemberJoinAction">
 		<result>/member/main.jsp</result>
 	</action>
@@ -18,10 +18,26 @@
 		<result>/member/idCheck.jsp</result>	
 	</action>
 	
+	<action name="joinForm" class="member.MemberJoinAction" method="joinform">
+		<result>/member/JoinForm.jsp</result>
+	</action>
+	
+
+<!-- 로그인  -->	
+	<action name="loginPro" class="member.loginAction">
+		<result>/member/loginResult.jsp</result>
+	</action>	
+
+<!-- 아이디 찾기 -->	
+	<action name="findIDForm" class="member.loginAction" method="findidform">
+		<result>/member/findIDForm.jsp</result>
+	</action>
+
+	<action name="findIDPro" class="member.loginAction" method="findId">
+		<result>/member/findIDresult.jsp</result>
+	</action>	
 	
 	</package>
-	
-	
 	
 	
 	

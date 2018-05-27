@@ -4,8 +4,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-import board.boardVO;
-
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
@@ -25,7 +23,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	Calendar m_joindate = Calendar.getInstance();
 	
 	//파일 업로드
 	private File Upload;
@@ -37,8 +34,8 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private String m_ID;
 	private String m_passwd;
 	private String m_name;
-	private String m_mobilephone; //VARCHAR2(14)
-	private int m_birthyear; //NUMBER
+	private String m_mobilephone;
+	private int m_birthyear;
 	private String m_region;
 	private String m_email;
 	private String m_nickname;
@@ -46,6 +43,7 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private int genUser =0;
 	private int adminUser = 1;
 	private String m_position;
+	private Calendar m_joindate = Calendar.getInstance();
 	
 	private MemberVO memberParam;
 	private MemberVO memberResult;

@@ -7,8 +7,8 @@ public class MemberVO {
 	private String m_ID;
 	private String m_passwd;
 	private String m_name;
-	private String m_mobilephone; //VARCHAR2(14)
-	private int m_birthyear; //NUMBER
+	private String m_mobilephone; 
+	private int m_birthyear; 
 	private String m_region;
 	private String m_email;
 	private String m_nickname;
