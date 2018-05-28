@@ -13,6 +13,9 @@
 	function checkIt(){
 		var useinput = eval("document.userinput");
 		var id = userinput.m_ID.value
+		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+		var re = /[~!@\#$%^&*\()\-=+_']/gi;
+
 		if(!id) {
 			alert("ID를 입력하세요");
 			return false;
@@ -49,6 +52,10 @@
 			alert("닉네임을 입력하세요");
 			return false;
 		}
+		else if(re.test(userinput.m_nickname.value)){
+			alert("닉네임 형식이 올바르지 않습니다.");
+			return false;
+		}
 		
 		if(!userinput.m_mobilephone.value) {
 			alert("휴대폰번호를 입력하세요");
@@ -79,8 +86,12 @@
 			alert("이메일을 입력하세요");
 			return false;
 		}
-		
-	}
+		else if(exptext.test(userinput.m_email.value)==false){
+			alert("이메일 형식이 올바르지 않습니다.");
+		return false;
+		}
+	    }
+	
 	 // 아이디 중복체크 창 오픈
 	function openConfirmid(userinput) {
 		var id = userinput.m_ID.value
@@ -99,16 +110,44 @@
 	//새로운 윈도우를 엽니다.
 	open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 	}
+	 
+	function openConfirmnick(userinput) {
+		var re = /[~!@\#$%^&*\()\-=+_']/gi;
+
+		var m_nickname = userinput.m_nickname.value
+		if(m_nickname == ""){
+			alert("닉네임을 입력하세요");
+			return;
+		}
+		else if(re.test(userinput.m_nickname.value)){
+			alert("닉네임 형식이 올바르지 않습니다.");
+			return false;
+		}
+		
 	
-	function zipCheck(){
-		url="Zipcheck.jsp?check=";
-		window.open(url,"post","toolbar=no, width=500, height=300, directories=no, status=yes, scrollbars=yes, menubar=no");
+	url = "memberNickCheck.action?m_nickname="+m_nickname;
+	open(url, "confirm2", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 	}
 	
-	function zipCheck_daum() {
-		url="Zipcheck_daum.jsp?check=";
-		window.open(url,"post","toolbar=no, width=500, height=300, directories=no, status=yes, scrollbars=yes, menubar=no");
+	function openConfirmemail(userinput) {
+		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
+		var m_email = userinput.m_email.value
+		if(m_email == ""){
+			alert("이메일을 입력하세요");
+			return;
+		}
+		else if(exptext.test(m_email)==false){
+			alert("이메일 형식이 올바르지 않습니다.");
+		return false;
+		}
+		
+	
+	url = "memberEmailCheck.action?m_email="+m_email;
+	open(url, "confirm3", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 	}
+	
+
 </script>
 </head>
 
@@ -156,6 +195,7 @@
 			<td width="200">닉네임</td>
 			<td width="400">
 				<input type="text" name="m_nickname" size="15" maxlength="10">
+				<input type="button" name="check_nick" value="닉네임 중복확인" OnClick="openConfirmnick(this.form)">
 			</td>
 		</tr>
 
@@ -163,11 +203,22 @@
 			<td width="200">포지션</td>
 			<td width="400">
 			<select name="m_position">
-			<option>공격수</option>
-			<option>미드펄더</option>
-			<option>수비수</option>
-			<option>골키퍼</option>
+			<option selected="selected">선택</option> 
+			<option>LWF</option>
+			<option>ST</option>
+			<option>RWF</option>
+			<option>LWM</option>
+			<option>CAM</option>
+			<option>CM</option>
+			<option>CDM</option>
+			<option>CB</option>
+			<option>LB</option>
+			<option>LWB</option>
+			<option>RB</option>
+			<option>RWB</option>
+			<option>GK</option>
 			</select>
+			<font color="red" size="2">※포지션을 선택해주세요.</font>
 			</td>
 		</tr>
 		
@@ -181,7 +232,7 @@
 		<tr>
 			<td width="200">지역</td>
 			<td width="400">
-				<input type="text" name="m_region" size="30">
+				<input type="text" name="m_region" size="20">
 			</td>
 		</tr>
 		<tr>
@@ -193,7 +244,9 @@
 		<tr>
 			<td width="200">이메일</td>
 			<td width="400">
-				<input type="text" name="m_email" size="50">
+				<input type="text" name="m_email" size="30">
+				<input type="button" name="email_nick" value="이메일 중복확인" OnClick="openConfirmemail(this.form)">
+				
 			</td>
 		</tr>
 		
@@ -214,7 +267,7 @@
 			<td colspan="2" align="center">
 				<input type="submit" name="confirm" value="등 록" onclick="return checkIt()">
 				<input type="reset" name="reset" value="다시 입력">
-				<input type="button" value="기입 안함" onclick="javascript:window.location='main.jsp'">
+				<input type="button" value="취소" onclick="javascript:window.location='main.jsp'">
 			</td>
 		</tr>			
 	</table>

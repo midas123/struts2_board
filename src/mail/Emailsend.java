@@ -40,7 +40,7 @@ public class Emailsend {
               
             // 송신자 설정
             InternetAddress from = new InternetAddress() ;
-            from = new InternetAddress(new String(fromName.getBytes(charSet), "8859_1") + "<welcometojungle123@gmail.com>");
+            from = new InternetAddress(new String(fromName.getBytes(charSet), "8859_1") + "<dlapdlfxptmxm123@gmail.com>");
             msg.setFrom(from);
               
             // 수신자 설정

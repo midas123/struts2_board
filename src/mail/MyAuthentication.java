@@ -10,8 +10,8 @@ public class MyAuthentication extends Authenticator {
   
     public MyAuthentication(){  //생성자를 통해 구글 ID/PW 인증
         System.out.println("계정인증을 시작합니다.");  
-        String id = "welcometojung123";       // 구글 ID
-        String pw = "*q20180223";          // 구글 비밀번호
+        String id = "";       // 구글 ID
+        String pw = "";          // 구글 비밀번호
   
         // ID와 비밀번호를 입력한다.
         pa = new PasswordAuthentication(id, pw);

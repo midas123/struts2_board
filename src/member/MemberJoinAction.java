@@ -50,6 +50,8 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	
 	//아이디 중복 체크
 	private int idcheckresult = 0;
+	private int nickcheckresult = 0;
+	private int emailcheckresult = 0;
 	
 	public MemberJoinAction() throws IOException {
 		// TODO Auto-generated constructor stub
@@ -74,7 +76,7 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		memberParam.setM_admin_yn(genUser);
 		memberParam.setM_joindate(m_joindate.getTime());
 		sqlMapper.insert("insertmember", memberParam);
-
+//memberSQL.insertmember
 		
 		if(getUpload() != null) {
 		
@@ -105,8 +107,19 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 			idcheckresult = 1;
 		return SUCCESS;
 	}
+	
+	public String nickcheck() throws Exception {
+		memberResult = (MemberVO)sqlMapper.queryForObject("nickcheck", memberParam);
+		if(memberResult == null)
+			nickcheckresult = 1;
+		
+		return SUCCESS;
+	}
 
 	public String emailcheck() throws Exception {
+		memberResult = (MemberVO)sqlMapper.queryForObject("emailcheck", memberParam);
+		if(memberResult == null)
+			emailcheckresult = 1;
 		
 		return SUCCESS;
 	}
@@ -123,6 +136,19 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	
 	
 	
+	
+	public int getNickcheckresult() {
+		return nickcheckresult;
+	}
+	public int getEmailcheckresult() {
+		return emailcheckresult;
+	}
+	public void setNickcheckresult(int nickcheckresult) {
+		this.nickcheckresult = nickcheckresult;
+	}
+	public void setEmailcheckresult(int emailcheckresult) {
+		this.emailcheckresult = emailcheckresult;
+	}
 	public int getIdcheckresult() {
 		return idcheckresult;
 	}
