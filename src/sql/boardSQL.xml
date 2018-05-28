@@ -62,9 +62,18 @@
 	WHERE M_ID=#m_ID#
 </update>
 
-<!-- 아이디 중복확인  -->
+
+<!-- 중복확인  -->
 <select id="idcheck" resultMap="memberRes" parameterClass="member">
 	SELECT * FROM MEMBER_000 WHERE M_ID = #m_ID#
+</select>
+
+<select id="nickcheck" resultMap="memberRes" parameterClass="member">
+	SELECT * FROM MEMBER_000 WHERE M_NICKNAME = #m_nickname#
+</select>
+
+<select id="emailcheck" resultMap="memberRes" parameterClass="member">
+	SELECT * FROM MEMBER_000 WHERE M_EMAIL = #m_email#
 </select>
 
 

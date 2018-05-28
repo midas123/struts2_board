@@ -18,9 +18,19 @@
 		<result>/member/idCheck.jsp</result>	
 	</action>
 	
+	<action name="memberNickCheck" class="member.MemberJoinAction" method="nickcheck">
+		<result>/member/nickCheck.jsp</result>	
+	</action>
+	
+	<action name="memberEmailCheck" class="member.MemberJoinAction" method="emailcheck">
+		<result>/member/emailCheck.jsp</result>	
+	</action>
+	
 	<action name="joinForm" class="member.MemberJoinAction" method="joinform">
 		<result>/member/JoinForm.jsp</result>
 	</action>
+	
+	
 	
 
 <!-- 로그인  -->	

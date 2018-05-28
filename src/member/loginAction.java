@@ -97,7 +97,6 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	public String findId() throws Exception{
 		
 		memberResult = (MemberVO)sqlMapper.queryForObject("findId", memberParam);
-		
 		return SUCCESS;
 	}
 	
@@ -110,14 +109,13 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 
 	public String findPw() throws Exception{
 		memberResult = (MemberVO)sqlMapper.queryForObject("findPw", memberParam);
-		System.out.println(memberResult.getM_name());
 
+		if(memberResult !=null) {
 		String subject = memberResult.getM_name()+"님, 비밀번호를 알려드립니다. -Arista";
 		String content = "고객님의 아이디: " + memberResult.getM_ID() + " 비밀번호: " + memberResult.getM_passwd();
 		Emailsend mail = new Emailsend();
 		mail.GmailSet(memberResult.getM_email(), subject, content);
-
-
+		}
 		
 		return SUCCESS;
 	}

@@ -23,6 +23,8 @@
 		<property name="JDBC.Password" value="${password}"/>
 	</dataSource>
 	</transactionManager>
-	<sqlMap resource="/sql/boardSQL.xml"/>
+<!-- 	<settings useStatementNamespaces="true"/>
+ -->	<sqlMap resource="/sql/boardSQL.xml"/>
+	<!-- <sqlMap resource="/sql/memberSQL.xml"/> -->
 
 </sqlMapConfig>
